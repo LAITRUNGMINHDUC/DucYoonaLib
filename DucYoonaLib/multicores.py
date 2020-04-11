@@ -15,3 +15,22 @@ def multiprocessing_function_general(func, arr_args):
     pool.map(func, arr_args)    
     pool.close()
     pool.join()
+
+def multiprocessing_read_xlsx_files(folderpath, sheet_name):
+    def read_xlsx_file(arg):
+        filename, sheet_name = arg
+        if (sheet_name != ''):
+            df = pd.read_excel(folderpath + filename, sheet_name= sheet_name)
+        else:
+            df = pd.read_excel(folderpath + filename)
+        return df 
+    
+    arr_args = list()
+    list_files = os.listdir(folderpath)
+    for file_item in list_files:
+        if ('xlsx' in file_item):
+            arg = (file_item, sheet_name)
+            arr_args.append(arg)
+
+    df = multiprocessing_function_dataframe(func = read_xlsx_file, arr_args= arr_args)
+    return df

@@ -1,2 +1,2 @@
-from .multicores import multiprocessing_function_dataframe, multiprocessing_function_general
+from .multicores import multiprocessing_function_dataframe, multiprocessing_function_general, multiprocessing_read_xlsx_files
 from .notification import alert_to_microsoft_teams, alert_to_slack
