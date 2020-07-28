@@ -9,7 +9,7 @@ def alert_to_slack(message):
 
     response = requests.post(
         webhook_url, data=json.dumps(slack_data),
-        headers={'Content-Type': 'application/json'}
+        headers={'Content-Type': 'application/json'}, verify=False
     )
     if response.status_code != 200:
         raise ValueError(
@@ -26,7 +26,7 @@ def alert_to_microsoft_teams(message):
     }
     response = requests.post(
         webhook_url, data=json.dumps(data),
-        headers={'Content-Type': 'application/json'}
+        headers={'Content-Type': 'application/json'}, verify=False
     )
 
     if response.status_code != 200:
