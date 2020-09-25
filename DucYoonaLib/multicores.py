@@ -55,9 +55,9 @@ def read_datafile(arg):
         df = pd.read_csv(folderpath + filepath, engine='python', encoding='utf-8')
     if filetype == 'XLSX' and 'xlsx' in filepath.lower():
         if (sheet_name != ''):
-            df = pd.read_excel(folderpath + filename, sheet_name= sheet_name)
+            df = pd.read_excel(folderpath + filepath, sheet_name= sheet_name)
         else:
-            df = pd.read_excel(folderpath + filename)
+            df = pd.read_excel(folderpath + filepath)
     return df
 
 def multiprocessing_read_datafiles(folderpath, sheet_name='', filetype='XLSX'):
