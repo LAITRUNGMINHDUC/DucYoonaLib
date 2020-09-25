@@ -5,7 +5,10 @@ import multiprocessing as mp
 def multiprocessing_function_dataframe(func, arr_args):
     pool = mp.Pool()
     df_result = pool.map(func, arr_args)
-    df_result = pd.concat(df_result)    
+    if len(df_result) > 1:
+        df_result = pd.concat(df_result)
+    else: df_result = df_result[0]
+        
     pool.close()
     pool.join()
     return df_result
