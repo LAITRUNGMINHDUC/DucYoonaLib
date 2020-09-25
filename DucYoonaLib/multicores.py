@@ -29,6 +29,7 @@ def singlecore_processing_function_general(func, arr_args):
 
 def read_xlsx_file(arg):
     filename, sheet_name, folderpath = arg
+    print (filename)
     if (sheet_name != ''):
         df = pd.read_excel(folderpath + filename, sheet_name= sheet_name)
     else:
@@ -44,4 +45,23 @@ def multiprocessing_read_xlsx_files(folderpath, sheet_name):
             arr_args.append(arg)
 
     df = multiprocessing_function_dataframe(func = read_xlsx_file, arr_args= arr_args)
+    return df
+
+def read_datafile(arg):
+    folderpath, filepath, filetype, sheet_name = arg
+    print (filepath)
+
+    if filetype == 'CSV' and 'csv' in filepath.lower():
+        df = pd.read_csv(folderpath + filepath, engine='python', encoding='utf-8')
+    if filetype == 'XLSX' and 'xlsx' in filepath.lower():
+        if (sheet_name != ''):
+            df = pd.read_excel(folderpath + filename, sheet_name= sheet_name)
+        else:
+            df = pd.read_excel(folderpath + filename)
+    return df
+
+def multiprocessing_read_datafiles(folderpath, sheet_name='', filetype='XLSX'):
+    list_files = os.listdir(folderpath)
+    arr_args = [(folderpath, filepath, filetype, sheet_name) for filepath in list_files]
+    df = multiprocessing_function_dataframe(func = read_datafile, arr_args= arr_args)
     return df
